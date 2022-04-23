@@ -1,4 +1,5 @@
-const { passwords, assignments } = require("./tables.js");
+const { password, assignment } = require("./element.js");
+const { passwords, assignments } = require("../tables.js");
 const enquirer = require("enquirer");
 
 module.exports = async () => {
@@ -15,10 +16,14 @@ module.exports = async () => {
     });
 
     switch (answers.prompt) {
-        case "Add a new password":
-            return "password";
-        case "Add a new assignment":
-            return "assignment";
+        case "Add a new password": {
+            password();
+            break;
+        }
+        case "Add a new assignment": {
+            assignment();
+            break;
+        }
         case "View all passwords": {
             passwords();
             break;
