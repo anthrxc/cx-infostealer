@@ -69,3 +69,59 @@ module.exports.password = async () => {
     // Close the file
     closeSync(0);
 };
+
+module.exports.assignment = async () => {
+    // Because class isn't allowed as a variable name, I had to use "_class" instead
+    const _class = await enquirer.prompt({
+        name: "class",
+        type: "input",
+        message: "Which class is this assignment for?"
+    });
+
+    const assignment = await enquirer.prompt({
+        name: "assignment",
+        type: "input",
+        message: "What is the assignment?"
+    });
+
+    const due = await enquirer.prompt({
+        name: "due",
+        type: "input",
+        message: "When is the assignment due?"
+    });
+
+    const data = {
+        class: _class.class,
+        assignment: assignment.assignment,
+        due: due.due
+    };
+
+    let assignments = readFileSync(path.join(__dirname, "../data/assignments.json"), { encoding: "utf-8" });
+    const asgnmnt = JSON.parse(assignments);
+    
+    let elem = [];
+
+    for(let prop in asgnmnt) {
+        elem.push(prop);
+    };
+
+    if (elem.length === 0) {
+        writeFileSync(path.join(__dirname, "../data/assignments.json"), JSON.stringify({ "_0": data  }), { encoding: "utf-8" });
+    }
+    else {
+        let name = elem.pop();
+        let num = parseInt(name.slice(1));
+        let newData = JSON.stringify({ [`_${num + 1}`]: data });
+
+        assignments = JSON.parse(JSON.stringify(assignments));
+
+        newData = newData.replace("{", ",");
+        assignments = assignments.slice(0, -1);
+        
+        assignments = assignments.concat(newData);
+
+        writeFileSync(path.join(__dirname, "../data/assignments.json"), assignments, { encoding: "utf-8" });
+    };
+
+    closeSync(0);
+};
