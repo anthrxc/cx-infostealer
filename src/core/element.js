@@ -1,6 +1,7 @@
 const enquirer = require("enquirer");
 const { readFileSync, writeFileSync, closeSync } = require("fs");
 const path = require("path");
+const { passwords, assignments } = require("./tables.js");
 
 module.exports.password = async () => {
     const url = await enquirer.prompt({
@@ -28,8 +29,8 @@ module.exports.password = async () => {
     };
 
     // Read the file so that we can append the new password (I dont know how else to do this)
-    let passwords = readFileSync(path.join(__dirname, "../data/passwords.json"), { encoding: "utf-8" });
-    const pass = JSON.parse(passwords);
+    let pswrds = readFileSync(path.join(__dirname, "../data/passwords.json"), { encoding: "utf-8" });
+    const pass = JSON.parse(pswrds);
     
     // stores element names ("_0", "_1", "_2", etc.), so when I append a new password,
     // I take the last element and increment the number by 1 (so if the last element is "_0", the next element will be "_1")
@@ -51,23 +52,25 @@ module.exports.password = async () => {
         let num = parseInt(name.slice(1));
         let newData = JSON.stringify({ [`_${num + 1}`]: data });
 
-        passwords = JSON.parse(JSON.stringify(passwords));
+        pswrds = JSON.parse(JSON.stringify(pswrds));
 
         // replace the open brace ("{") with a comma (",")
         newData = newData.replace("{", ",");
 
         // remove the last character in the string (because it's JSON we know that it will ALWAYS be a closing brace ("}")
-        passwords = passwords.slice(0, -1);
+        pswrds = pswrds.slice(0, -1);
         
         // append the new password to the file
-        passwords = passwords.concat(newData);
+        pswrds = pswrds.concat(newData);
 
         // write the file with the new password
-        writeFileSync(path.join(__dirname, "../data/passwords.json"), passwords, { encoding: "utf-8" });
+        writeFileSync(path.join(__dirname, "../data/passwords.json"), pswrds, { encoding: "utf-8" });
     };
 
     // Close the file
     closeSync(0);
+
+    passwords();
 };
 
 module.exports.assignment = async () => {
@@ -96,8 +99,8 @@ module.exports.assignment = async () => {
         due: due.due
     };
 
-    let assignments = readFileSync(path.join(__dirname, "../data/assignments.json"), { encoding: "utf-8" });
-    const asgnmnt = JSON.parse(assignments);
+    let asgnmnts = readFileSync(path.join(__dirname, "../data/assignments.json"), { encoding: "utf-8" });
+    const asgnmnt = JSON.parse(asgnmnts);
     
     let elem = [];
 
@@ -113,15 +116,17 @@ module.exports.assignment = async () => {
         let num = parseInt(name.slice(1));
         let newData = JSON.stringify({ [`_${num + 1}`]: data });
 
-        assignments = JSON.parse(JSON.stringify(assignments));
+        asgnmnts = JSON.parse(JSON.stringify(asgnmnts));
 
         newData = newData.replace("{", ",");
-        assignments = assignments.slice(0, -1);
+        asgnmnts = asgnmnts.slice(0, -1);
         
-        assignments = assignments.concat(newData);
+        asgnmnts = asgnmnts.concat(newData);
 
-        writeFileSync(path.join(__dirname, "../data/assignments.json"), assignments, { encoding: "utf-8" });
+        writeFileSync(path.join(__dirname, "../data/assignments.json"), asgnmnts, { encoding: "utf-8" });
     };
 
     closeSync(0);
+
+    assignments();
 };
