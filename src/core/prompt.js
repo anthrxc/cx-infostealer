@@ -12,6 +12,7 @@ module.exports = async () => {
             "Add a new assignment",
             "View all passwords",
             "View all assignments",
+            "Exit the program"
         ]
     });
 
@@ -31,6 +32,10 @@ module.exports = async () => {
         case "View all assignments": {
             assignments();
             break;
+        }
+        default: {
+            console.log("Goodbye!");
+            process.exit();
         }
     };
 };
