@@ -1,5 +1,5 @@
+const { passwords, assignments } = require("./tables.js");
 const { password, assignment } = require("./element.js");
-const { passwords, assignments } = require("../tables.js");
 const enquirer = require("enquirer");
 
 module.exports = async () => {
