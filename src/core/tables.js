@@ -8,7 +8,7 @@ module.exports.passwords = async () => {
     const passwordTable = new Table("Passwords");
     passwordTable.setHeading("URL", "Username", "Password");
     
-    const passwords = readFileSync(path.join(__dirname, "./data/passwords.json"), { encoding: "utf-8" });
+    const passwords = readFileSync(path.join(__dirname, "../data/passwords.json"), { encoding: "utf-8" });
     const pass = JSON.parse(passwords);
 
     for(let prop in pass) {
@@ -26,7 +26,7 @@ module.exports.assignments = async () => {
     const assignmentTable = new Table("Assignments");
     assignmentTable.setHeading("Class", "Assignmenet", "Due Date");
     
-    const assignments = readFileSync(path.join(__dirname, "./data/assignments.json"), { encoding: "utf-8" });
+    const assignments = readFileSync(path.join(__dirname, "../data/assignments.json"), { encoding: "utf-8" });
     const assign = JSON.parse(assignments);
     
     for(let prop in assign) {
