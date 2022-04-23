@@ -1,6 +1,7 @@
 const Table = require("ascii-table");
 const { readFileSync } = require("fs");
 const path = require("path");
+const prompt = require("./prompt.js");
 
 module.exports.passwords = async () => {
     // Make a table of the passwords
@@ -16,6 +17,8 @@ module.exports.passwords = async () => {
 
     // Print the table
     console.log(passwordTable.toString());
+
+    prompt();
 };
 
 module.exports.assignments = async () => {
@@ -32,4 +35,6 @@ module.exports.assignments = async () => {
     
     // Print the table
     console.log(assignmentTable.toString());
+
+    prompt();
 };
