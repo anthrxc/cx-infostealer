@@ -1,3 +1,3 @@
-const { prompt } = require("./core/prompt.js"); 
+const prompt = require("./core/prompt.js"); 
 
 prompt();
