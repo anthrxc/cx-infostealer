@@ -1,5 +1,6 @@
 const { passwords, assignments } = require("./tables.js");
 const { password, assignment } = require("./element.js");
+const { selectPassword, selectAssignment } = require("./update.js")
 const enquirer = require("enquirer");
 
 module.exports = async () => {
@@ -10,6 +11,8 @@ module.exports = async () => {
         choices: [
             "Add a new password",
             "Add a new assignment",
+            "Edit password",
+            "Edit assignment",
             "View all passwords",
             "View all assignments",
             "Exit the program"
@@ -23,6 +26,14 @@ module.exports = async () => {
         }
         case "Add a new assignment": {
             assignment();
+            break;
+        }
+        case "Edit password": {
+            selectPassword();
+            break;
+        }
+        case "Edit assignment": {
+            selectAssignment();
             break;
         }
         case "View all passwords": {
