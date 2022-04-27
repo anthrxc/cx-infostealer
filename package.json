@@ -18,6 +18,7 @@
   "homepage": "https://github.com/anthrxc/cx-infostealer#readme",
   "dependencies": {
     "ascii-table": "^0.0.9",
-    "enquirer": "^2.3.6"
+    "enquirer": "^2.3.6",
+    "jsonfile-updater": "^3.1.0"
   }
 }
